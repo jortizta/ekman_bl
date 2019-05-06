@@ -1,0 +1,47 @@
+!----*|--.---------.---------.---------.---------.---------.---------.-|-------|
+! grid_def, the portion of the header that defines the grid size for diablo.
+!----*|--.---------.---------.---------.---------.---------.---------.-|-------|
+! Span-Wise Direction> NX Vertical Direction -> NY  Stream-Wise Direction -> NZ 
+
+	PARAMETER (NX = 256)
+	PARAMETER (NY = 129-2)
+	PARAMETER (NZ = 321-2)
+	PARAMETER (N_TH = 1)
+
+! Sponge Location (You can turn off the sponge layer by setting NZ_S_R = NZ+2 OR set sponge_type=0 in input file)
+
+	PARAMETER (NZ_S_R = 1707)
+	PARAMETER (NZ_S_L = NZ + 1 - NZ_S_R) 
+	PARAMETER (NY_S_T = 120)
+
+!*___*|---------------------------------------------
+      PARAMETER (NKX=NX/3)
+!____*|--.---------.---------. MULTIGRID PARAMETERS :
+
+        INTEGER NYC, NZC, LEVELS, NM
+        PARAMETER (NYC=3)
+        PARAMETER (NZC=17)
+        PARAMETER (NM=177045)
+        PARAMETER (LEVELS=8)
+
+!----*|--.---------.---------.---------.---------.---------.---------.-|-------|
+!-------------MPI PARAMETERS :     
+	PARAMETER (NP= 16)
+	PARAMETER (NZV=ceiling(real(NZ+2)/real(NP))*NP)
+	PARAMETER (NXV=ceiling(real(NX+2)/real(NP))*NP)
+	PARAMETER (NXP=NXV/NP-1)
+	PARAMETER (NZP=NZV/NP-1)      
+	PARAMETER (NKXV=ceiling(real(NKX+1)/real(NP))*NP) 
+	PARAMETER (NKXP=NKXV/NP-1)
+	PARAMETER (NX2V=ceiling(real(NXV/2)/real(NP))*NP)
+	PARAMETER (NX2P=NX2V/NP-1)    
+!	PARAMETER (NXP_L=NX-(NXP+1)*(NP-1)-1)
+
+!----*|--.---------.---------.---------.---------.---------.---------.-|-------|
+!-------------MUDPACK (Remove_Divergence) Parameters:
+
+	PARAMETER (iixp = 5 , jjyq = 4, iiex = 7, jjey = 6 )
+	PARAMETER (nnx=iixp*2**(iiex-1)+1, nny=jjyq*2**(jjey-1)+1)
+	PARAMETER (llwork=(7*(nnx+2)*(nny+2)+44*nnx*nny)/3 )
+
+

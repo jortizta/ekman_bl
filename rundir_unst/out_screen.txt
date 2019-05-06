@@ -1,0 +1,163 @@
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ Grid size: NX =         256 , NY =         127 , NZ =         319 .
+ Actual Grid size: NXV =         272 , NY =         127 , NZV =         336 .
+ Domain size: LX =   60.0000000000000      , LY =   60.0000000000000      , LZ =
+   60.0000000000000      .
+ NU  1.300000000000000E-004 DELTA_T   3.00000000000000      Delta_s
+  0.133447439758439     
+ Amp of tide  0.000000000000000E+000 Frequency of tide  1.460000000000000E-002 
+ Frequency of Rot  1.000000000000000E-004
+ CFL  0.800000000000000      Diffu No  0.500000000000000     
+ Variable delta_t applited T  0.000000000000000E+000
+ Scalar number:            1
+ Final buoyancy number:   0.000000000000000E+000
+ Prandlt number:    1.00000000000000     
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ Grid size: NX =         256 , NY =         127 , NZ =         319 .
+ Actual Grid size: NXV =         272 , NY =         127 , NZV =         336 .
+ Domain size: LX =   60.0000000000000      , LY =   60.0000000000000      , LZ =
+   60.0000000000000      .
+ NU  1.300000000000000E-004 DELTA_T   3.00000000000000      Delta_s
+  0.133447439758439     
+ Amp of tide  0.000000000000000E+000 Frequency of tide  1.460000000000000E-002 
+ Frequency of Rot  1.000000000000000E-004
+ CFL  0.800000000000000      Diffu No  0.500000000000000     
+ Variable delta_t applited T  0.000000000000000E+000
+ Scalar number:            1
+ Final buoyancy number:   0.000000000000000E+000
+ Prandlt number:    1.00000000000000     
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ Grid size: NX =         256 , NY =         127 , NZ =         319 .
+ Actual Grid size: NXV =         272 , NY =         127 , NZV =         336 .
+ Domain size: LX =   60.0000000000000      , LY =   60.0000000000000      , LZ =
+   60.0000000000000      .
+ NU  1.300000000000000E-004 DELTA_T   3.00000000000000      Delta_s
+  0.133447439758439     
+ Amp of tide  0.000000000000000E+000 Frequency of tide  1.460000000000000E-002 
+ Frequency of Rot  1.000000000000000E-004
+ CFL  0.800000000000000      Diffu No  0.500000000000000     
+ Variable delta_t applited T  0.000000000000000E+000
+ Scalar number:            1
+ Final buoyancy number:   0.000000000000000E+000
+ Prandlt number:    1.00000000000000     
+ Saving flow statistics.
+           0  0.000000000000000E+000   3.00000000000000     
+ THBULK:   0.000000000000000E+000 Ri  0.000000000000000E+000
+ <U_rms_avg>:   5.739066682239541E-004
+ <V_rms_avg>:   9.295885779670816E-005
+ <W_rms_avg>:   1.574231127074514E-002
+ done save_stats curvi
+ Saving flow statistics.
+           0  0.000000000000000E+000   3.00000000000000     
+ THBULK:   0.000000000000000E+000 Ri  0.000000000000000E+000
+ <U_rms_avg>:   8.073439288650190E-005
+ <V_rms_avg>:   3.310575252434191E-005
+ <W_rms_avg>:   1.937903689818555E-003
+ done save_stats curvi
+     1    time=     0.00000000    dt=     3.00000000
+     2    time=     3.00000000    dt=     3.00000000
+     3    time=     6.00000000    dt=     3.00000000
+     4    time=     9.00000000    dt=     3.00000000
+     5    time=    12.00000000    dt=     3.00000000
+     6    time=    15.00000000    dt=     3.00000000
+     7    time=    18.00000000    dt=     3.00000000
+     8    time=    21.00000000    dt=     3.00000000
+     9    time=    24.00000000    dt=     3.00000000
+    10    time=    27.00000000    dt=     3.00000000
+    11    time=    30.00000000    dt=     3.00000000
+    12    time=    33.00000000    dt=     3.00000000
+    13    time=    36.00000000    dt=     3.00000000
+    14    time=    39.00000000    dt=     3.00000000
+    15    time=    42.00000000    dt=     3.00000000
+    16    time=    45.00000000    dt=     3.00000000
+    17    time=    48.00000000    dt=     3.00000000
+    18    time=    51.00000000    dt=     3.00000000
+    19    time=    54.00000000    dt=     3.00000000
+    20    time=    57.00000000    dt=     3.00000000
+    21    time=    60.00000000    dt=     3.00000000
+    22    time=    63.00000000    dt=     3.00000000
+    23    time=    66.00000000    dt=     3.00000000
+    24    time=    69.00000000    dt=     3.00000000
+    25    time=    72.00000000    dt=     3.00000000
+    26    time=    75.00000000    dt=     3.00000000
+    27    time=    78.00000000    dt=     3.00000000
+    28    time=    81.00000000    dt=     3.00000000
+    29    time=    84.00000000    dt=     3.00000000
+    30    time=    87.00000000    dt=     3.00000000
+    31    time=    90.00000000    dt=     3.00000000
+    32    time=    93.00000000    dt=     3.00000000
+    33    time=    96.00000000    dt=     3.00000000
+    34    time=    99.00000000    dt=     3.00000000
+    35    time=   102.00000000    dt=     3.00000000
+    36    time=   105.00000000    dt=     3.00000000
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ Grid size: NX =         256 , NY =         127 , NZ =         319 .
+ Actual Grid size: NXV =         272 , NY =         127 , NZV =         336 .
+ Domain size: LX =   60.0000000000000      , LY =   60.0000000000000      , LZ =
+   60.0000000000000      .
+ NU  1.300000000000000E-004 DELTA_T   3.00000000000000      Delta_s
+  0.133447439758439     
+ Amp of tide  0.000000000000000E+000 Frequency of tide  1.460000000000000E-002 
+ Frequency of Rot  1.000000000000000E-004
+ CFL  0.800000000000000      Diffu No  0.500000000000000     
+ Variable delta_t applited T  0.000000000000000E+000
+ Scalar number:            1
+ Final buoyancy number:   0.000000000000000E+000
+ Prandlt number:    1.00000000000000     
+ advanced in CFD LAB at UC San Diego
+ 
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ Saving flow statistics.
+           0  0.000000000000000E+000   3.00000000000000     
+ THBULK:   0.000000000000000E+000 Ri  0.000000000000000E+000
+ <U_rms_avg>:   8.971336338680749E-004
+ <V_rms_avg>:   7.546238023515102E-004
+ <W_rms_avg>:   1.163647575727290E-003
+ done save_stats curvi
+ Saving flow statistics.
+           0  0.000000000000000E+000   3.00000000000000     
+ THBULK:   0.000000000000000E+000 Ri  0.000000000000000E+000
+ <U_rms_avg>:   8.971336338680750E-004
+ <V_rms_avg>:   7.546238023515102E-004
+ <W_rms_avg>:   1.163647575727291E-003
+ done save_stats curvi
+     1    time=     0.00000000    dt=     3.00000000
+     2    time=     3.00000000    dt=     3.00000000
+     3    time=     6.00000000    dt=     3.00000000
+     4    time=     9.00000000    dt=     3.00000000
+     5    time=    12.00000000    dt=     3.00000000
+     6    time=    15.00000000    dt=     3.00000000
+     7    time=    18.00000000    dt=     3.00000000
+     8    time=    21.00000000    dt=     3.00000000
+     9    time=    24.00000000    dt=     3.00000000
+    10    time=    27.00000000    dt=     3.00000000
+    11    time=    30.00000000    dt=     3.00000000
+    12    time=    33.00000000    dt=     3.00000000
+    13    time=    36.00000000    dt=     3.00000000
+    14    time=    39.00000000    dt=     3.00000000
+    15    time=    42.00000000    dt=     3.00000000
+    16    time=    45.00000000    dt=     3.00000000
+    17    time=    48.00000000    dt=     3.00000000
+    18    time=    51.00000000    dt=     3.00000000
+    19    time=    54.00000000    dt=     3.00000000
+    20    time=    57.00000000    dt=     3.00000000
+    21    time=    60.00000000    dt=     3.00000000
+    22    time=    63.00000000    dt=     3.00000000
+    23    time=    66.00000000    dt=     3.00000000
+    24    time=    69.00000000    dt=     3.00000000
+    25    time=    72.00000000    dt=     3.00000000
+    26    time=    75.00000000    dt=     3.00000000
+    27    time=    78.00000000    dt=     3.00000000
+    28    time=    81.00000000    dt=     3.00000000
+    29    time=    84.00000000    dt=     3.00000000
+    30    time=    87.00000000    dt=     3.00000000
+    31    time=    90.00000000    dt=     3.00000000
+    32    time=    93.00000000    dt=     3.00000000
+    33    time=    96.00000000    dt=     3.00000000

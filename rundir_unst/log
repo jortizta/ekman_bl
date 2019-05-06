@@ -1,0 +1,780 @@
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ 
+              ************ WELCOME TO DIABLO ************
+ 
+ Initializing...
+ Note that this code is advanced in CFD LAB at UC San Diego
+ 
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+ MUDPACK Will be Used as Remove_Divergence Package. 
+
+ Bc  diablo nxa =  0 nxb =  0 nyc =  2 nyd =  2
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     5           0
+rank:     5, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     4           0
+rank:     4, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16    11           0
+rank:    11, index bound:    16  index bound 2:    -3
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     9           0
+rank:     9, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16    15           0
+rank:    15, index bound:     0  index bound 2:   -35
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     2           0
+rank:     2, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     8           0
+rank:     8, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     7           0
+rank:     7, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16    10           0
+rank:    10, index bound:    16  index bound 2:     5
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     0           0
+ Grid size: NX =         256 , NY =         127 , NZ =         319 .
+ Domain size: LX =   60.0000000000000      , LY =   60.0000000000000      , LZ =
+   60.0000000000000      .
+ NU  1.300000000000000E-004 DELTA_T   3.00000000000000      Delta_s
+  0.133447439758439     
+ CFL  0.800000000000000      Diffu No  0.500000000000000     
+ Variable delta_t applited T  0.000000000000000E+000
+ Scalar number:            1
+ Final Buoyancy number:   0.000000000000000E+000
+ Prandlt number:    1.00000000000000     
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     1           0
+rank:     1, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     3           0
+rank:     3, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16    12           0
+rank:    12, index bound:    16  index bound 2:   -11
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16    13           0
+rank:    13, index bound:    16  index bound 2:   -19
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16     6           0
+rank:     6, index bound:    16  index bound 2:     8
+rank:     0, index bound:    16  index bound 2:     8
+MPI INITIALIZED: NPROCS, RANK, MPI_COMM_WORLD=     16    14           0
+rank:    14, index bound:    16  index bound 2:   -27
+ Jacobian tranformation is starting
+ Jacobian Tranformation is Done
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ THE DIVERGENCE IS   0.000000000000000E+000 at INITIAL FLOW field
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ Initializing FFTW package.
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ 
+ FFTW package Successfully initialized along Span-Wise direction
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ Boundary condition for U
+ U_BC_YMIN           0 U_BC_YMAX           1
+ U_BC_ZMIN           6 U_BC_ZMAX           6
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ U_BC_YMIN_C1  0.000000000000000E+000 U_BC_YMAX_C1  0.000000000000000E+000
+ U_BC_ZMIN_C1  0.000000000000000E+000 U_BC_ZMAX_C1  0.000000000000000E+000
+ Boundary condition for W
+ W_BC_YMIN           0 W_BC_YMAX           1
+ W_BC_ZMIN           6 W_BC_ZMAX           6
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ W_BC_YMIN_C1  0.000000000000000E+000 W_BC_YMAX_C1  0.000000000000000E+000
+ W_BC_ZMIN_C1  0.000000000000000E+000 W_BC_ZMAX_C1  0.000000000000000E+000
+ Boundary condition for V
+ V_BC_YMIN           0 V_BC_YMAX           1
+ V_BC_ZMIN           6 V_BC_ZMAX           6
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ V_BC_YMIN_C1  0.000000000000000E+000 V_BC_YMAX_C1  0.000000000000000E+000
+ V_BC_ZMIN_C1  0.000000000000000E+000 V_BC_ZMAX_C1  0.000000000000000E+000
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ JSATRT           1 JEND         127
+ ZSATRT           1 ZEND         319
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ Boundary condition for TH
+ TH_BC_YMIN           5 TH_BC_YMAX           1
+ TH_BC_ZMIN           6 TH_BC_ZMAX           6
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ TH_BC_YMIN_C1  1.560000000000000E-003 TH_BC_YMAX_C1  0.000000000000000E+000
+ TH_BC_ZMIN_C1  0.000000000000000E+000 TH_BC_ZMAX_C1  0.000000000000000E+000
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ JSATRT_TH           1 JEND_TH         127
+ ZSATRT_TH           1 ZEND_TH         319
+ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+ A new thfield has been created
+ Reading flow from velocity data last_saved/diablo_004.saved        
+ Reading flow from theta data last_saved/diablo_th01_004.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow...
+ Reading flow from velocity data last_saved/diablo_001.saved        
+ Reading flow from theta data last_saved/diablo_th01_001.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_003.saved        
+ Reading flow from theta data last_saved/diablo_th01_003.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_013.saved        
+ Reading flow from theta data last_saved/diablo_th01_013.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_014.saved        
+ Reading flow from theta data last_saved/diablo_th01_014.saved   
+ Reading flow from velocity data last_saved/diablo_011.saved        
+ Reading flow from theta data last_saved/diablo_th01_011.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_008.saved        
+ Reading flow from theta data last_saved/diablo_th01_008.saved   
+ Reading flow from velocity data last_saved/diablo_009.saved        
+ Reading flow from theta data last_saved/diablo_th01_009.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_007.saved        
+ Reading flow from theta data last_saved/diablo_th01_007.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_005.saved        
+ Reading flow from theta data last_saved/diablo_th01_005.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_016.saved        
+ Reading flow from theta data last_saved/diablo_th01_016.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_006.saved        
+ Reading flow from theta data last_saved/diablo_th01_006.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_010.saved        
+ Reading flow from theta data last_saved/diablo_th01_010.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_012.saved        
+ Reading flow from theta data last_saved/diablo_th01_012.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_002.saved        
+ Reading flow from theta data last_saved/diablo_th01_002.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ Reading flow from velocity data last_saved/diablo_015.saved        
+ Reading flow from theta data last_saved/diablo_th01_015.saved   
+ NX_T, NY_T, NZ_T:          256         127         319   128998.964114655     
+       43000
+ Size      390096
+ READING FLOW
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ READ VEL, PRESSURE
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ Done reading flow
+ Saving flow statistics.
+ Allocate all the tmp arrays
+ VELOCITY feild has been write from input file
+ UBULK:   4.481173015976663E-002
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+ VELOCITY feild has been write from input file
+           0  0.000000000000000E+000   3.00000000000000     
+ THBULK:   0.000000000000000E+000 Ri  0.000000000000000E+000
+ start writing in pln format plane_3D/data_3d_0000.pln_001
+ plane_3D/data_3d_0000.pln_003
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_013
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_001
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_004
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_015
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_009
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_014
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_010
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_002
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_016
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_011
+ Saving full 3D data
+ Done with saving full 3D data
+ Saving ZY-plane data on zy_plane/span3_0000_.pln     
+ plane_3D/data_3d_0000.pln_007
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_005
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_006
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_008
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_012
+ Saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Saving ZY-plane data on zy_plane/span1_0000_.pln     
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Saving XZ-plane data on xy_plane/span1_0000_001.pln  
+ Saving XZ-plane data on xy_plane/span2_0000_001.pln  
+ Done with saving full 3D data
+ Saving XZ-plane data on xy_plane/span3_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span1_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span2_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span3_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span4_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span5_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span6_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span7_0000_001.pln  
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Saving ZY-plane data on zy_plane/span2_0000_.pln     
+ Done with saving full 3D data
+ <U_rms_avg>:   8.971336338680749E-004
+ <V_rms_avg>:   7.546238023515102E-004
+ <W_rms_avg>:   1.163647575727290E-003
+ writing TKE budget: plane_tke/data_tke_00000.plt
+time=        0.00000 phase=  0.0
+ start writing in pln format plane_data/data_tec_00000.pln
+ start writing in plt formatplane_data/data_tec_00000.plt
+time=        0.00000 phase=  0.0
+ done save_stats curvi
+ Dealloc tmp: SAVE_STATS_CURVI
+ 
+ Saving Stats is Completed!
+ Saving flow statistics.
+ Allocate all the tmp arrays
+ UBULK:   4.481173015976663E-002
+           0  0.000000000000000E+000   3.00000000000000     
+ THBULK:   0.000000000000000E+000 Ri  0.000000000000000E+000
+ start writing in pln format plane_3D/data_3d_0000.pln_001
+ plane_3D/data_3d_0000.pln_016
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_004
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_001
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_006
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_007
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_003
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_014
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_005
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_012
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_015
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_011
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_008
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_009
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_002
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_013
+ Saving full 3D data
+ plane_3D/data_3d_0000.pln_010
+ Saving full 3D data
+ Done with saving full 3D data
+ Saving ZY-plane data on zy_plane/span3_0000_.pln     
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Saving XZ-plane data on xy_plane/span1_0000_001.pln  
+ Saving XZ-plane data on xy_plane/span2_0000_001.pln  
+ Done with saving full 3D data
+ Saving XZ-plane data on xy_plane/span3_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span1_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span2_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span3_0000_001.pln  
+ Done with saving full 3D data
+ Saving XZ-plane data on xz_plane/span4_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span5_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span6_0000_001.pln  
+ Saving XZ-plane data on xz_plane/span7_0000_001.pln  
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Saving ZY-plane data on zy_plane/span1_0000_.pln     
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Done with saving full 3D data
+ Saving ZY-plane data on zy_plane/span2_0000_.pln     
+ <U_rms_avg>:   8.971336338680750E-004
+ <V_rms_avg>:   7.546238023515102E-004
+ <W_rms_avg>:   1.163647575727291E-003
+ writing TKE budget: plane_tke/data_tke_00000.plt
+time=        0.00000 phase=  0.0
+ start writing in pln format plane_data/data_tec_00000.pln
+ start writing in plt formatplane_data/data_tec_00000.plt
+time=        0.00000 phase=  0.0
+ done save_stats curvi
+ Dealloc tmp: SAVE_STATS_CURVI
+ 
+ Saving Stats is Completed!
+ Initialization Done!
+  
+     1    time=     0.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.606703113522405E-010
+ Divergence after the projection step:  6.034035004464517E-010
+ WARNING: dt=   4.92870951249729       capped at    3.00000000000000     
+ Divergence after the projection step:  3.726074076461844E-010
+  
+     2    time=     3.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.624303412433890E-010
+ Divergence after the projection step:  6.055737504871812E-010
+ WARNING: dt=   4.93449324109207       capped at    3.00000000000000     
+ Divergence after the projection step:  3.746273870803604E-010
+  
+     3    time=     6.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.649650141242315E-010
+ Divergence after the projection step:  6.097649162438470E-010
+ WARNING: dt=   4.93825423665067       capped at    3.00000000000000     
+ Divergence after the projection step:  3.756092496119526E-010
+  
+     4    time=     9.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.667967675145528E-010
+ Divergence after the projection step:  6.145200103909292E-010
+ WARNING: dt=   4.93447573419318       capped at    3.00000000000000     
+ Divergence after the projection step:  3.753814323356482E-010
+  
+     5    time=    12.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.675452117944122E-010
+ Divergence after the projection step:  6.162162236300905E-010
+ WARNING: dt=   4.93421788566293       capped at    3.00000000000000     
+ Divergence after the projection step:  3.734366430015063E-010
+  
+     6    time=    15.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.674762206760175E-010
+ Divergence after the projection step:  6.116713618270708E-010
+ WARNING: dt=   4.93890890727308       capped at    3.00000000000000     
+ Divergence after the projection step:  3.717008795055344E-010
+  
+     7    time=    18.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.671729071590958E-010
+ Divergence after the projection step:  6.061922719002286E-010
+ WARNING: dt=   4.92972593986100       capped at    3.00000000000000     
+ Divergence after the projection step:  3.710068764901859E-010
+  
+     8    time=    21.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.674364489657009E-010
+ Divergence after the projection step:  6.029938043465298E-010
+ WARNING: dt=   4.94689500030350       capped at    3.00000000000000     
+ Divergence after the projection step:  3.709066460080200E-010
+  
+     9    time=    24.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.692768190949853E-010
+ Divergence after the projection step:  6.045795868018665E-010
+ WARNING: dt=   4.93169739758698       capped at    3.00000000000000     
+ Divergence after the projection step:  3.734770769145281E-010
+  
+    10    time=    27.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.724327361412321E-010
+ Divergence after the projection step:  6.086406615908721E-010
+ WARNING: dt=   4.94033857504266       capped at    3.00000000000000     
+ Divergence after the projection step:  3.759974407892475E-010
+  
+    11    time=    30.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.749487882177034E-010
+ Divergence after the projection step:  6.111562999721187E-010
+ WARNING: dt=   4.93914665793418       capped at    3.00000000000000     
+ Divergence after the projection step:  3.765042128332782E-010
+  
+    12    time=    33.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.751492062379240E-010
+ Divergence after the projection step:  6.082317072370713E-010
+ WARNING: dt=   4.93830449667270       capped at    3.00000000000000     
+ Divergence after the projection step:  3.750302087069738E-010
+  
+    13    time=    36.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.746046515257985E-010
+ Divergence after the projection step:  6.017492438067756E-010
+ WARNING: dt=   4.94882899607006       capped at    3.00000000000000     
+ Divergence after the projection step:  3.733092652984345E-010
+  
+    14    time=    39.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.735919156724314E-010
+ Divergence after the projection step:  5.969749297168132E-010
+ WARNING: dt=   4.94122036266159       capped at    3.00000000000000     
+ Divergence after the projection step:  3.721503763833327E-010
+  
+    15    time=    42.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.735910039972053E-010
+ Divergence after the projection step:  5.954641814286908E-010
+ WARNING: dt=   4.94069824710675       capped at    3.00000000000000     
+ Divergence after the projection step:  3.731151865397556E-010
+  
+    16    time=    45.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.747508478076913E-010
+ Divergence after the projection step:  6.004080467411445E-010
+ WARNING: dt=   4.94557261578771       capped at    3.00000000000000     
+ Divergence after the projection step:  3.763054143682983E-010
+  
+    17    time=    48.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.766396889867849E-010
+ Divergence after the projection step:  6.082092785794243E-010
+ WARNING: dt=   4.93930222848678       capped at    3.00000000000000     
+ Divergence after the projection step:  3.777576588294691E-010
+  
+    18    time=    51.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.769874889640020E-010
+ Divergence after the projection step:  6.132095453806490E-010
+ WARNING: dt=   4.94976386200112       capped at    3.00000000000000     
+ Divergence after the projection step:  3.759549835758729E-010
+  
+    19    time=    54.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.752353180679585E-010
+ Divergence after the projection step:  6.129381257621931E-010
+ WARNING: dt=   4.94378088991601       capped at    3.00000000000000     
+ Divergence after the projection step:  3.717645117735289E-010
+  
+    20    time=    57.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.728648761202668E-010
+ Divergence after the projection step:  6.068629664843605E-010
+ WARNING: dt=   4.94663332527696       capped at    3.00000000000000     
+ Divergence after the projection step:  3.684093344768618E-010
+  
+    21    time=    60.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.712776510399804E-010
+ Divergence after the projection step:  6.014762536477268E-010
+ WARNING: dt=   4.94711007460386       capped at    3.00000000000000     
+ Divergence after the projection step:  3.687592817764790E-010
+  
+    22    time=    63.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.709682045000731E-010
+ Divergence after the projection step:  6.032882107264610E-010
+ WARNING: dt=   4.94590474404792       capped at    3.00000000000000     
+ Divergence after the projection step:  3.721229977208270E-010
+  
+    23    time=    66.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.723856575700272E-010
+ Divergence after the projection step:  6.069673943048762E-010
+ WARNING: dt=   4.95018940908298       capped at    3.00000000000000     
+ Divergence after the projection step:  3.759274035231295E-010
+  
+    24    time=    69.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.741415148083294E-010
+ Divergence after the projection step:  6.128591468872261E-010
+ WARNING: dt=   4.94480440219835       capped at    3.00000000000000     
+ Divergence after the projection step:  3.775681759001533E-010
+  
+    25    time=    72.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.750184930601226E-010
+ Divergence after the projection step:  6.097379034102044E-010
+ WARNING: dt=   4.95027416464469       capped at    3.00000000000000     
+ Divergence after the projection step:  3.776959287010734E-010
+  
+    26    time=    75.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.759240509021733E-010
+ Divergence after the projection step:  6.049175991381895E-010
+ WARNING: dt=   4.94594829045062       capped at    3.00000000000000     
+ Divergence after the projection step:  3.756293675311733E-010
+  
+    27    time=    78.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.771945921204215E-010
+ Divergence after the projection step:  5.973290457738839E-010
+ WARNING: dt=   4.94945145405840       capped at    3.00000000000000     
+ Divergence after the projection step:  3.759776733547713E-010
+  
+    28    time=    81.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.796415349073535E-010
+ Divergence after the projection step:  5.967490542847938E-010
+ WARNING: dt=   4.94967736593098       capped at    3.00000000000000     
+ Divergence after the projection step:  3.780151456442556E-010
+  
+    29    time=    84.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.836307179410254E-010
+ Divergence after the projection step:  5.974569502369749E-010
+ WARNING: dt=   4.94774332352671       capped at    3.00000000000000     
+ Divergence after the projection step:  3.799969148526029E-010
+  
+    30    time=    87.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.881424304023302E-010
+ Divergence after the projection step:  6.042483016511713E-010
+ WARNING: dt=   4.95113925477431       capped at    3.00000000000000     
+ Divergence after the projection step:  3.818191116978080E-010
+  
+    31    time=    90.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.932405539289776E-010
+ Divergence after the projection step:  6.101092238301227E-010
+ WARNING: dt=   4.94856675690280       capped at    3.00000000000000     
+ Divergence after the projection step:  3.830437656509993E-010
+  
+    32    time=    93.00000000    dt=     3.00000000
+ Divergence after the projection step:  2.969430163069412E-010
+ Divergence after the projection step:  6.131065915851207E-010
+ WARNING: dt=   4.95088481410465       capped at    3.00000000000000     
+ Divergence after the projection step:  3.813175766805610E-010
+  
+    33    time=    96.00000000    dt=     3.00000000
+-------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code.. Per user-direction, the job has been aborted.
+-------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[24279,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------

@@ -1,0 +1,3 @@
+clear
+NAME_OUT=rundir_unst/log
+tail -f $NAME_OUT
