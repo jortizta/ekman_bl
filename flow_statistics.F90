@@ -20,6 +20,7 @@ SUBROUTINE SAVE_STATS_CURVI(FINAL)
     REAL(r8) dummy1(0:NZ+1,0:NY+1),dummy2(0:NZ+1,0:NY+1)
     REAL(r8) dummy3(0:NZ+1,0:NY+1),dummy4(0:NZ+1,0:NY+1), dummy5(1:NZ+1,1:NY+1)
     CHARACTER*29 file_name
+    CHARACTER*128 file_name_2
     CHARACTER*3 PID
     CHARACTER*5 file_num
     LOGICAL     TKE_BUDGET, SAVE_3D, SAVE_SPAN_XY, SAVE_CS, SAVE_SPAN_XZ, HIGH_MOMENT, SAVE_SPAN_ZY
@@ -34,7 +35,7 @@ SUBROUTINE SAVE_STATS_CURVI(FINAL)
 
     
     TKE_BUDGET = .True.
-    SAVE_3D    = .True.
+    SAVE_3D    = .False.
 
     SAVE_SPAN_XY    = .TRUE.
     SAVE_SPAN_XZ    = .TRUE.
@@ -725,14 +726,20 @@ SUBROUTINE SAVE_STATS_CURVI(FINAL)
               CALL system('mkdir xz_plane')
               WRITE(6,*) 'xz_plane is created!'
             ENDIF
-        
+
+!Jose_Flat        
             J = 2 !you can change this deafult 
             file_name = 'xz_plane/span1_'//file_num//PID//'.pln'
             CALL plane_XZ_binary(file_name,J)
+	    
+            file_name_2 = 'xz_plane/span1_'//file_num//'combined.pln'
+            CALL plane_XZ_binary_combined(file_name_2,J)
         
             J = 13 !you can change this deafult 
             file_name = 'xz_plane/span2_'//file_num//PID//'.pln'
+            write(*,*) 'begin next plane'
             CALL plane_XZ_binary(file_name,J)
+            write(*,*) 'end next plane'
         
             J = 29   !you can change this deafult 
             file_name = 'xz_plane/span3_'//file_num//PID//'.pln'
@@ -2086,6 +2093,104 @@ SUBROUTINE plane_XZ_binary(file_name,ind)
               PX(0:NI,0:NZ+1,J),THX(0:NI,0:NZ+1,J,1)
 
     CLOSE(22)
+RETURN
+END
+
+!#########################################################################
+
+SUBROUTINE plane_XZ_binary_combined(file_name,ind)
+
+  USE ntypes
+  USE Domain
+  USE Grid
+  USE run_variable,     ONLY : U1X,U2X,U3X,THX,PX,TIME,TIME_STEP
+  USE mg_vari,          ONLY : INIT_FLAG
+  USE TIME_STEP_VAR,    ONLY: DELTA_T
+  USE mpi_var, ONLY: RANK,NPROCES
+
+    IMPLICIT NONE
+
+    INTEGER  ind,STATUS,IERROR
+    INTEGER  i,j,k, NI
+    CHARACTER*128 file_name
+
+    REAL*8 , allocatable ::  U1X_TOT(:,:)
+    REAL*8 , allocatable ::  U1X_TEMP(:,:)
+    REAL*8 xpoint_TOT(0:NX-1,1:NZ)
+    REAL*8 zpoint_TOT(0:NX-1,1:NZ)
+ 
+    J=ind
+
+!    WRITE(*,*) 'RANK','SIZE(U1X)',RANK,SIZE(U1X)
+
+    IF (RANK.EQ.0) THEN
+
+      allocate(U1X_TOT(0:NX-1,1:NZ))
+
+      DO I=0,NX-1
+	xpoint_TOT(I,1:NZ)=I*dx(1)
+	zpoint_TOT(I,1:NZ) = xpoint(1:NZ,J)
+      ENDDO
+
+      U1X_TOT(0:NXP,:)=U3X(0:NXP,1:NZ,J) 
+
+      DO I=1,NPROCES-2       
+       allocate(U1X_TEMP(0:NXP,1:NZ))
+       CALL MPI_RECV(U1X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
+       U1X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U1X_TEMP(0:NXP,:)
+       write(*,*) 'receiving info',I,'minval',minval(u1x_temp),maxval(u1x_temp)    
+      deallocate(U1X_TEMP)
+      ENDDO
+
+      allocate(U1X_TEMP(0:0,1:NZ))
+      CALL MPI_RECV(U1X_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
+      U1X_TOT(NX-1:NX-1,:)=U1X_TEMP
+       write(*,*) 'receiving info',NPROCES-1,'minval',minval(u1x_temp),maxval(u1x_temp)    
+      deallocate(U1X_TEMP)
+    
+    ELSEIF ((RANK.NE.0) .AND. (RANK.NE.(NPROCES-1)))  THEN 
+
+    allocate(U1X_TEMP(0:NXP,1:NZ))
+    U1X_TEMP=U3X(0:NXP,1:NZ,J)     
+    write(*,*) 'sending info',RANK,'minval',minval(u1x_temp),maxval(u1x_temp)    
+    CALL MPI_SEND(U1X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+    deallocate(U1X_TEMP)
+
+    ELSEIF (RANK.EQ.(NPROCES-1))  THEN 
+
+    allocate(U1X_TEMP(0:0,1:NZ))
+    U1X_TEMP(0,1:NZ)=U3X(0,1:NZ,J)     
+    write(*,*) 'sending info',RANK,'minval',minval(u1x_temp),maxval(u1x_temp)    
+    CALL MPI_SEND(U1X_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+    deallocate(U1X_TEMP)
+
+    ENDIF
+
+    CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
+
+    IF (RANK.EQ.0) THEN 
+
+    write(*,*)'Proc',RANK,'writes'
+
+    WRITE(6,*) 'Saving combined XZ-plane data on ',TRIM(file_name)
+    OPEN(22,file=TRIM(file_name),form='unformatted',status='unknown')
+    write(*,*) 'begin writting'
+    WRITE(22) TIME,NX,NZ,J,NXP
+    WRITE(22) zpoint_TOT, xpoint_TOT
+   
+    write(*,*) 'begin writting data',SHAPE(U1X_TOT)
+    WRITE(22) U1X_TOT(0:NX-1,1:NZ)
+    write(*,*) 'end writting'
+    CLOSE(22)
+
+
+    DEALLOCATE(U1X_TOT)
+
+    ENDIF
+
+
+    CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
+
 RETURN
 END
 
