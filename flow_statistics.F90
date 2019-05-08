@@ -22,7 +22,7 @@ SUBROUTINE SAVE_STATS_CURVI(FINAL)
     CHARACTER*29 file_name
     CHARACTER*128 file_name_2
     CHARACTER*3 PID
-    CHARACTER*5 file_num
+    CHARACTER*5 file_num,aux_str
     LOGICAL     TKE_BUDGET, SAVE_3D, SAVE_SPAN_XY, SAVE_CS, SAVE_SPAN_XZ, HIGH_MOMENT, SAVE_SPAN_ZY
 
     INTEGER, DIMENSION(:), ALLOCATABLE :: seed
@@ -624,24 +624,34 @@ SUBROUTINE SAVE_STATS_CURVI(FINAL)
 	      WRITE(6,*) 'xy_plane is created!'
 	    ENDIF 
 	  
-	    k = INT((NZ+1)/4) !you can change this deafult 
-	    file_name = 'xy_plane/span1_'//file_num//PID//'.pln'
-	    CALL plane_XY_binary(file_name,k)     
-	    
-	    k = INT((NZ+1)/2) !you can change this deafult 
-	    file_name = 'xy_plane/span2_'//file_num//PID//'.pln'
-	    CALL plane_XY_binary(file_name,k)     
+!	    k = INT((NZ+1)/4) !you can change this deafult 
+!	    file_name = 'xy_plane/span1_'//file_num//PID//'.pln'
+!	    CALL plane_XY_binary(file_name,k)     
+!	    
+!	    k = INT((NZ+1)/2) !you can change this deafult 
+!	    file_name = 'xy_plane/span2_'//file_num//PID//'.pln'
+!	    CALL plane_XY_binary(file_name,k)     
+!	    
+!	    k = INT(3*(NZ+1)/4)   !you can change this deafult 
+!	    file_name = 'xy_plane/span3_'//file_num//PID//'.pln'
+!	    CALL plane_XY_binary(file_name,k)     
+!
 
-	    file_name_2 = 'xy_plane/span2_'//file_num//'combined.pln'
-
-            write(*,*) 'entering XY combined' 
+	    k = INT((NZ+1)/4)
+            write(aux_str,'(I4.4)') k
+            file_name_2 = 'xy_plane/span_'//file_num//'K_'//TRIM(aux_str)//'.pln' 
 	    CALL plane_XY_binary_combined(file_name_2,k)     
 	
-
-	    
-	    k = INT(3*(NZ+1)/4)   !you can change this deafult 
-	    file_name = 'xy_plane/span3_'//file_num//PID//'.pln'
-	    CALL plane_XY_binary(file_name,k)     
+	    k = INT((NZ+1)/2)
+            write(aux_str,'(I4.4)') k
+            file_name_2 = 'xy_plane/span_'//file_num//'K_'//TRIM(aux_str)//'.pln' 
+	    CALL plane_XY_binary_combined(file_name_2,k)     
+	
+	    k = INT(3*(NZ+1)/4)
+            write(aux_str,'(I4.4)') k
+            file_name_2 = 'xy_plane/span_'//file_num//'K_'//TRIM(aux_str)//'.pln' 
+	    CALL plane_XY_binary_combined(file_name_2,k)     
+	
 	    
       ENDIF
 
@@ -734,37 +744,73 @@ SUBROUTINE SAVE_STATS_CURVI(FINAL)
               WRITE(6,*) 'xz_plane is created!'
             ENDIF
 
-!Jose_Flat        
-            J = 2 !you can change this deafult 
-            file_name = 'xz_plane/span1_'//file_num//PID//'.pln'
-            CALL plane_XZ_binary(file_name,J)
+!            J = 2 !you can change this deafult 
+!            file_name = 'xz_plane/span1_'//file_num//PID//'.pln'
+!            CALL plane_XZ_binary(file_name,J)
 	    
-            file_name_2 = 'xz_plane/span1_'//file_num//'combined.pln'
+!            J = 13 !you can change this deafult 
+!            file_name = 'xz_plane/span2_'//file_num//PID//'.pln'
+!            CALL plane_XZ_binary(file_name,J)
+!        
+!            J = 29   !you can change this deafult 
+!            file_name = 'xz_plane/span3_'//file_num//PID//'.pln'
+!            CALL plane_XZ_binary(file_name,J)
+!        
+!            J = 44  !you can change this deafult 
+!            file_name = 'xz_plane/span4_'//file_num//PID//'.pln'
+!            CALL plane_XZ_binary(file_name,J)
+!
+!            J = 70  !you can change this deafult 
+!            file_name = 'xz_plane/span5_'//file_num//PID//'.pln'
+!            CALL plane_XZ_binary(file_name,J)
+!
+!            J = 98  !you can change this deafult 
+!            file_name = 'xz_plane/span6_'//file_num//PID//'.pln'
+!            CALL plane_XZ_binary(file_name,J)
+!
+!            J = 109  !you can change this deafult 
+!            file_name = 'xz_plane/span7_'//file_num//PID//'.pln'
+!            CALL plane_XZ_binary(file_name,J)
+!
+
+            J=2
+            write(aux_str,'(I4.4)') J
+            file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
             CALL plane_XZ_binary_combined(file_name_2,J)
         
-            J = 13 !you can change this deafult 
-            file_name = 'xz_plane/span2_'//file_num//PID//'.pln'
-            CALL plane_XZ_binary(file_name,J)
-        
-            J = 29   !you can change this deafult 
-            file_name = 'xz_plane/span3_'//file_num//PID//'.pln'
-            CALL plane_XZ_binary(file_name,J)
-        
-            J = 44  !you can change this deafult 
-            file_name = 'xz_plane/span4_'//file_num//PID//'.pln'
-            CALL plane_XZ_binary(file_name,J)
+            J=13
+            write(aux_str,'(I4.4)') J
+            file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
+            CALL plane_XZ_binary_combined(file_name_2,J)
+ 
+            J=29
+            write(aux_str,'(I4.4)') J
+            file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
+            CALL plane_XZ_binary_combined(file_name_2,J)
+ 
+            J=44
+            write(aux_str,'(I4.4)') J
+            file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
+            CALL plane_XZ_binary_combined(file_name_2,J)
+ 
+            J=70
+            write(aux_str,'(I4.4)') J
+            file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
+            CALL plane_XZ_binary_combined(file_name_2,J)
+ 
+            J=98
+            write(aux_str,'(I4.4)') J
+            file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
+            CALL plane_XZ_binary_combined(file_name_2,J)
+ 
+            J=109
+            write(aux_str,'(I4.4)') J
+            file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
+            CALL plane_XZ_binary_combined(file_name_2,J)
+ 
 
-            J = 70  !you can change this deafult 
-            file_name = 'xz_plane/span5_'//file_num//PID//'.pln'
-            CALL plane_XZ_binary(file_name,J)
 
-            J = 98  !you can change this deafult 
-            file_name = 'xz_plane/span6_'//file_num//PID//'.pln'
-            CALL plane_XZ_binary(file_name,J)
 
-            J = 109  !you can change this deafult 
-            file_name = 'xz_plane/span7_'//file_num//PID//'.pln'
-            CALL plane_XZ_binary(file_name,J)
       ENDIF
 
   ! ! !!!!!!!!!!END oF SAVING SPAN-WISE PLANE DATA!!!!!!!!!!!!!!!!!!!!!
@@ -2023,7 +2069,6 @@ SUBROUTINE plane_XY_binary(file_name,ind)
     k=ind
     NI = min(NXP,NXP_L)
 
-    write(*,*) 'rank,ni,nxp,nxp_l',rank,ni,nxp,nxp_l
 	  
     IF (RANK.EQ.0) WRITE(6,*) 'Saving XZ-plane data on ', file_name
     OPEN(22,file=file_name,form='unformatted',status='unknown')
@@ -2066,6 +2111,8 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
 
     k=ind
 
+    IF (NPROCES.EQ.1) write(*,*)'WARNING: plane_XY_binary_combined is not compatible with serial writting' 
+
     IF (RANK.EQ.0) THEN ! master proc writes its part and receives from all
 
       allocate(U1X_TOT(0:NX,0:NY+1),U2X_TOT(0:NX,0:NY+1),U3X_TOT(0:NX,0:NY+1),PX_TOT(0:NX,0:NY+1),THX_TOT(0:NX,0:NY+1))
@@ -2090,8 +2137,6 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
       CALL MPI_RECV(PX_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
       CALL MPI_RECV(THX_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
 
-      write(*,*)'received from',I, minval(u1x_temp),maxval(u1x_temp)
-
       U1X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U1X_TEMP(0:NXP,:)
       U2X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U2X_TEMP(0:NXP,:)
       U3X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U3X_TEMP(0:NXP,:)
@@ -2110,7 +2155,6 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
       CALL MPI_RECV(PX_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
       CALL MPI_RECV(THX_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
 
-      write(*,*)'received from last proc', minval(u1x_temp),maxval(u1x_temp)
       U1X_TOT(NX-1:NX-1,:)=U1X_TEMP(0:0,0:NY+1)
       U2X_TOT(NX-1:NX-1,:)=U2X_TEMP(0:0,0:NY+1)
       U3X_TOT(NX-1:NX-1,:)=U3X_TEMP(0:0,0:NY+1)
@@ -2196,8 +2240,34 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
 
     ENDIF
 
-    CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
+!    ELSEIF(NPROCES.EQ.1) THEN !in case nproc=1
 
+!    DO I=0,NX
+!	xpoint_TOT(I,:)=I*dx(1)
+!	ypoint_TOT(I,:) = ypoint(1,:)
+!    ENDDO
+
+!      DO J=1,NY
+!       DO I=1,NX-1
+!        h1=ypoint_TOT(I,J+1)-ypoint_TOT(I,J); h2=ypoint_TOT(I,J)-ypoint_TOT(I,J-1);        b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+!        dudy=b*U1X(I,k,J+1)+c*U1X(I,k,J-1);
+!        h1=xpoint_TOT(I+1,J)-xpoint_TOT(I,J); h2=xpoint_TOT(I,J)-xpoint_TOT(I-1,J);        b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+!        dvdx=b*U2X(I+1,k,J)+c*U2X(I-1,k,J);
+!        Omega_z(I,J)=dvdx-dudy
+!       ENDDO
+!      ENDDO
+!
+!    WRITE(6,*) 'Saving combined XY-plane data on ',TRIM(file_name)
+!    OPEN(22,file=TRIM(file_name),form='unformatted',status='unknown')
+!    WRITE(22) TIME,NX,NY,k,NXP
+!    WRITE(22) ypoint_TOT, xpoint_TOT   
+!    WRITE(22) U1X(:,k,:),U2X(:,k,:),U3X(:,k,:),PX(:,k,:),THX(:,k,:,1),Omega_z
+!    CLOSE(22)
+
+!    ENDIF
+
+
+    CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
 
   RETURN
 END subroutine plane_XY_binary_combined
@@ -2284,7 +2354,7 @@ SUBROUTINE plane_XZ_binary_combined(file_name,ind)
     IMPLICIT NONE
 
     INTEGER  ind,STATUS,IERROR
-    INTEGER  i,j,k, NI
+    INTEGER  i,j,k, NI,jj,ii
     CHARACTER*128 file_name
 
     REAL*8 , allocatable ::  U1X_TOT(:,:),U2X_TOT(:,:),U3X_TOT(:,:),PX_TOT(:,:),THX_TOT(:,:)
@@ -2297,6 +2367,8 @@ SUBROUTINE plane_XZ_binary_combined(file_name,ind)
     REAL*8 h1,h2,b,c,dudz,dwdx,dudz_p,dwdx_p,tmp 
 
     J=ind
+
+    IF (NPROCES.EQ.1) write(*,*)'WARNING: plane_XZ_binary_combined is not compatible with serial writting' 
 
     IF (RANK.EQ.0) THEN ! master proc writes its part and receives from all
 
@@ -2399,40 +2471,40 @@ SUBROUTINE plane_XZ_binary_combined(file_name,ind)
 
     IF (RANK.EQ.0) THEN 
 
-      DO J=2,NZ-1
-       DO I=1,NX-2
-        h1=zpoint_TOT(I,J+1)-zpoint_TOT(I,J); h2=zpoint_TOT(I,J)-zpoint_TOT(I,J-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-        dudz=b*U1X_TOT(I,J+1)+c*U1X_TOT(I,J-1);
-        h1=xpoint_TOT(I+1,J)-xpoint_TOT(I,J); h2=xpoint_TOT(I,J)-xpoint_TOT(I-1,J);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-        dwdx=b*U3X_TOT(I+1,J)+c*U3X_TOT(I-1,J);
-        Omega_y(I,J)=dudz-dwdx
+      DO JJ=2,NZ-1
+       DO II=1,NX-2
+        h1=zpoint_TOT(II,JJ+1)-zpoint_TOT(II,JJ); h2=zpoint_TOT(II,JJ)-zpoint_TOT(II,JJ-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+        dudz=b*U1X_TOT(II,JJ+1)+c*U1X_TOT(II,JJ-1);
+        h1=xpoint_TOT(II+1,JJ)-xpoint_TOT(II,JJ); h2=xpoint_TOT(II,JJ)-xpoint_TOT(II-1,JJ);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+        dwdx=b*U3X_TOT(II+1,JJ)+c*U3X_TOT(II-1,JJ);
+        Omega_y(II,JJ)=dudz-dwdx
        ENDDO
       ENDDO
       
       Omega_y(0,:)=Omega_y(NX-2,:); Omega_y(NX-1,:)=Omega_y(1,:);
       Omega_y(:,NZ)=Omega_y(:,2); Omega_y(:,1)=Omega_y(:,NZ-1);
  
-     DO I=0,NX-1
-      tmp=SUM(U3X_TOT(I,1:NZ))/dble(NZ)
-      U3X_p(I,:) = U3X_TOT(I,:)-tmp
-      tmp=SUM(U2X_TOT(I,1:NZ))/dble(NZ)
-      U2X_p(I,:) = U2X_TOT(I,:)-tmp
+     DO II=0,NX-1
+      tmp=SUM(U3X_TOT(II,1:NZ))/dble(NZ)
+      U3X_p(II,:) = U3X_TOT(II,:)-tmp
+      tmp=SUM(U2X_TOT(II,1:NZ))/dble(NZ)
+      U2X_p(II,:) = U2X_TOT(II,:)-tmp
       tmp=SUM(U1X_TOT(I,1:NZ))/dble(NZ)
-      U1X_p(I,:) = U1X_TOT(I,:)-tmp
+      U1X_p(II,:) = U1X_TOT(II,:)-tmp
 
-      tmp=SUM(THX_TOT(I,1:NZ))/dble(NZ)
-      THX_p(I,:) = THX_TOT(I,:)-tmp
-      tmp=SUM(PX_TOT(I,1:NZ))/dble(NZ)
-      PX_p(I,:) = PX_TOT(I,:)-tmp
+      tmp=SUM(THX_TOT(II,1:NZ))/dble(NZ)
+      THX_p(II,:) = THX_TOT(II,:)-tmp
+      tmp=SUM(PX_TOT(II,1:NZ))/dble(NZ)
+      PX_p(II,:) = PX_TOT(II,:)-tmp
      ENDDO
  
-     DO J=2,NZ-1
-       DO I=1,NX-2
-        h1=zpoint_TOT(I,J+1)-zpoint_TOT(I,J); h2=zpoint_TOT(I,J)-zpoint_TOT(I,J-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-        dudz_p=b*U1X_p(I,J+1)+c*U1X_p(I,J-1);
-        h1=xpoint_TOT(I+1,J)-xpoint_TOT(I,J); h2=xpoint_TOT(I,J)-xpoint_TOT(I-1,J);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-        dwdx_p=b*U3X_p(I+1,J)+c*U3X_p(I-1,J);
-        Omega_y_p(I,J)=dudz_p-dwdx_p
+     DO JJ=2,NZ-1
+       DO II=1,NX-2
+        h1=zpoint_TOT(II,JJ+1)-zpoint_TOT(II,JJ); h2=zpoint_TOT(II,JJ)-zpoint_TOT(II,JJ-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+        dudz_p=b*U1X_p(II,JJ+1)+c*U1X_p(II,JJ-1);
+        h1=xpoint_TOT(II+1,JJ)-xpoint_TOT(II,JJ); h2=xpoint_TOT(II,JJ)-xpoint_TOT(II-1,JJ);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+        dwdx_p=b*U3X_p(II+1,JJ)+c*U3X_p(II-1,JJ);
+        Omega_y_p(II,JJ)=dudz_p-dwdx_p
        ENDDO
       ENDDO
       
@@ -2453,6 +2525,64 @@ SUBROUTINE plane_XZ_binary_combined(file_name,ind)
 
     ENDIF
 
+!    ELSEIF (NPROCES.EQ.1) THEN
+
+!    write(*,*) 'plane XZ combined serial is not coded'    
+
+!      DO I=0,NX-1
+!	xpoint_TOT(I,1:NZ)=I*dx(1)
+!	zpoint_TOT(I,1:NZ) = xpoint(1:NZ,J)
+!      ENDDO
+!
+!      DO JJ=2,NZ-1
+!       DO II=1,NX-2
+!        h1=zpoint_TOT(II,JJ+1)-zpoint_TOT(II,JJ); h2=zpoint_TOT(II,JJ)-zpoint_TOT(II,JJ-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+!        dudz=b*U1X(II,JJ+1,J)+c*U1X(II,JJ-1,J);
+!        h1=xpoint_TOT(II+1,JJ)-xpoint_TOT(II,JJ); h2=xpoint_TOT(II,JJ)-xpoint_TOT(II-1,JJ);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+!        dwdx=b*U3X(II+1,JJ,J)+c*U3X(II-1,JJ,J);
+!        Omega_y(II,JJ)=dudz-dwdx
+!       ENDDO
+!      ENDDO
+!      
+!      Omega_y(0,:)=Omega_y(NX-2,:); Omega_y(NX-1,:)=Omega_y(1,:);
+!      Omega_y(:,NZ)=Omega_y(:,2); Omega_y(:,1)=Omega_y(:,NZ-1);
+! 
+!     DO I=0,NX-1
+!      tmp=SUM(U3X(I,:,J))/dble(NZ)
+!      U3X_p(I,:) = U3X(I,:,J)-tmp
+!      tmp=SUM(U2X(I,:,J))/dble(NZ)
+!      U2X_p(I,:) = U2X(I,:,J)-tmp
+!      tmp=SUM(U1X(I,:,J))/dble(NZ)
+!      U1X_p(I,:) = U1X(I,:,J)-tmp
+!
+!      tmp=SUM(THX(I,:,J,1))/dble(NZ)
+!      THX_p(I,:) = THX(I,:,J,1)-tmp
+!      tmp=SUM(PX(I,:,J))/dble(NZ)
+!      PX_p(I,:) = PX(I,:,J)-tmp
+!     ENDDO
+! 
+!     DO JJ=2,NZ-1
+!       DO II=1,NX-2
+!        h1=zpoint_TOT(II,JJ+1)-zpoint_TOT(II,JJ); h2=zpoint_TOT(II,JJ)-zpoint_TOT(II,JJ-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+!        dudz_p=b*U1X_p(II,JJ+1)+c*U1X_p(II,JJ-1);
+!        h1=xpoint_TOT(II+1,JJ)-xpoint_TOT(II,JJ); h2=xpoint_TOT(II,JJ)-xpoint_TOT(II-1,JJ);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
+!        dwdx_p=b*U3X_p(II+1,JJ)+c*U3X_p(II-1,JJ);
+!        Omega_y_p(II,JJ)=dudz_p-dwdx_p
+!       ENDDO
+!      ENDDO
+!      
+!      Omega_y_p(0,:)=Omega_y_p(NX-2,:); Omega_y_p(NX-1,:)=Omega_y_p(1,:);
+!      Omega_y_p(:,NZ)=Omega_y_p(:,2); Omega_y_p(:,1)=Omega_y_p(:,NZ-1);
+! 
+!    WRITE(6,*) 'Saving combined XZ-plane data on ',TRIM(file_name)
+!    OPEN(22,file=TRIM(file_name),form='unformatted',status='unknown')
+!    WRITE(22) TIME,NX,NZ,J,NXP
+!    WRITE(22) zpoint_TOT, xpoint_TOT   
+!    WRITE(22) U1X(:,:,J),U2X(:,:,J),U3X(:,:,J),PX(:,:,J),THX(:,:,J,1)
+!    WRITE(22) U1X_p(0:NX-1,1:NZ),U2X_p(0:NX-1,1:NZ),U3X_p(0:NX-1,1:NZ),PX_p(0:NX-1,1:NZ),THX_p(0:NX-1,1:NZ),Omega_y(0:NX-1,1:NZ),Omega_y_p(0:NX-1,1:NZ)
+!    CLOSE(22)
+
+!    ENDIF 
 
     CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
 
