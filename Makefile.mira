@@ -5,32 +5,17 @@
 # to account for recent changes to the code.
 #
 
-
-#COMPILER = mpif90 -vec-report0 -mcmodel=medium -shared-intel -traceback -xT -O3 -ipo -no-prec-div -heap-arrays 99999
-
-
-#COMPILER = mpif90 -mcmodel=large -shared-intel -traceback -O3 -ipo -no-prec-div -heap-arrays 99999
-
-
-COMPILER = mpif90 -mcmodel=large -O3 -shared-intel
-
-#COMPILER = ftn -traceback #-default64 -dynamic #-O3  
-
-#COMPILER = ftn -traceback #-default64 -dynamic #-O3  
-#COMPOPTS =   -I/opt/intel/fc/10.1.015/include
-#COMOPTS= -I/opt/intel/fc/18.0.1.163/include
-#COMOPTS=- I/p/home/jortizta/lib/diablo_lib/fftw/2.1.5.3/lib/
-
-LINKOPTS = -L $(HOME)/lib/diablo_lib/fftw/2.1.5.3/lib/ -ldrfftw -ldfftw
-DLDFLAGS = -lm $(HOME)/lib/diablo_lib/tecplot10/lib/tecio64.a -lstdc++
-
+COMPILER = mpif90 -vec-report0 -mcmodel=medium -shared-intel -traceback -O3 -ipo -no-prec-div -heap-arrays 99999 -march=core-avx-i -axcore-avx-i
+#COMPILER = mpif90 -vec-report0 -mcmodel=medium -shared-intel -C -warn all -fp-stack-check -g -debug all -traceback
+COMPOPTS =   -I/opt/intel/fc/10.1.015/include  -i-dynamic
+LINKOPTS =   -L/home/bob/FFTW2_ifort/lib -lrfftw -lfftw
+DLDFLAGS =   -lm /home/bob/tecplot10/lib/tecio64.a -lstdc++
 
 # Executable file Name (Should Match with NAME_EXE in RUN file)
 NAME_EXE = unstratified
 
 # LES Option
 LES = TRUE
-
 
 ifeq ($(LES),TRUE)
 LES_CHAN = les_chan.o les_chan_th.o
@@ -93,7 +78,7 @@ flow_statistics.o:      flow_statistics.F90  grid_def
 	$(COMPILER) $(COMPOPTS) -c flow_statistics.F90
 
 clean:
-	rm -f *.o* fort.* *~  core *.mod *.phy 
+	rm -f *.o* fort.* *~ $(NAME_EXE) output.txt out_screen.txt core *.mod *.phy 
 
 # Compiler specific notes:
 #

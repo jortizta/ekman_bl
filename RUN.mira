@@ -1,0 +1,38 @@
+# This is the "go" script for PNEX2.
+# Such a shell script makes repetitive compiling and running
+# easy while debugging the code in a unix-based environment.
+
+clear
+# increased upper limite of shared memory in UBUNTU
+ulimit -s unlimited
+#ulimit stacksizae unlimited
+
+# FFTW2 path for library
+export LD_LIBRARY_PATH=/home/bob/FFTW2_ifort/lib:$LD_LIBRARY_PATH
+
+# Code Directory and Run Directory
+ codedir=/work/jose/ekman_bl
+ rundir=/work/jose/ekman_bl/rundir_unst
+
+# Exectuable Run file name (Should Match with NAME_EXE in Makefile)
+NAME_EXE=unstratified
+
+#Output log file name
+NAME_OUT=log
+
+cd $codedir
+
+rm grid_def -f
+ln -s $rundir/grid_def grid_def
+rm input.dat -f
+ln -s $rundir/input.dat input.dat
+
+make clean
+make
+
+rm $rundir/$NAME_EXE
+mv $NAME_EXE $rundir/
+make clean 
+
+cd $rundir
+mpirun -np 16 $rundir/$NAME_EXE > $NAME_OUT  &

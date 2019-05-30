@@ -26,7 +26,7 @@ DLDFLAGS = -lm $(HOME)/lib/diablo_lib/tecplot10/lib/tecio64.a -lstdc++
 
 
 # Executable file Name (Should Match with NAME_EXE in RUN file)
-NAME_EXE = unstratified
+NAME_EXE = stratified
 
 # LES Option
 LES = TRUE
