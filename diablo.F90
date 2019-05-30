@@ -130,18 +130,23 @@ PROGRAM DIABLO
          ENDIF
         ENDDO
 
+!Jose
+!           probably a minor bug in the computation of the transient value of the Rig when restarting. 
+!           Have to reset time when computing stratified case.\\
 	DO N=1,N_TH 
 	  IF ( INT_TREAT ) THEN
-	    IF ( (TIME-INT_TIME) .LT. TRANS_TIME) THEN
+	    IF ( TIME .LT. TRANS_TIME) THEN
+!	    IF ( (TIME-INT_TIME) .LT. TRANS_TIME) THEN
               IF ( RANK.EQ.0) WRITE (6,*) '**WARNING: initial TREATMENT for stratification has been used**'
-	      RI_TAU(N) = RI_FINAL * ( TIME - INT_TIME ) / TRANS_TIME
+!	      RI_TAU(N) = RI_FINAL * ( TIME - INT_TIME ) / TRANS_TIME
+	      RI_TAU(N) = RI_FINAL * ( TIME ) / TRANS_TIME
 	    ELSE
 	      RI_TAU(N) = RI_FINAL
 	    ENDIF    
 	  ELSE
 	    RI_TAU(N) = RI_FINAL
 	  ENDIF   
-	ENDDO  
+	ENDDO   
         
    
 	DO RK_STEP=1,3
@@ -831,8 +836,9 @@ SUBROUTINE SAVE_FLOW(FINAL)
   RETURN
 END
 
+!bob
 ! C----*|--.---------.---------.---------.---------.---------.---------.-|-------|
-SUBROUTINE BACKUP_FLOW
+SUBROUTINE BACKUP_FLOW  
 ! C----*|--.---------.---------.---------.---------.---------.---------.-|-------|
   USE ntypes
   USE Domain
@@ -846,33 +852,41 @@ SUBROUTINE BACKUP_FLOW
 
     CHARACTER*45 FNAME
     CHARACTER*45 FNAME_TH(N_TH)
-    INTEGER      I, J, K, N, no_p,ny_p
+    CHARACTER*5 file_num
+    INTEGER      I, J, K, N, m, no_p,ny_p
     LOGICAL      dir_exists
     PARAMETER  (no_p=4, ny_p=66)
+
+            
+	   m = time_step/BACKUP_FLOW_INT
+            file_num = CHAR(MOD(m,10000)/1000+48) &
+                  //CHAR(MOD(m,1000)/100+48)     &
+                  //CHAR(MOD(m,100)/10+48)       &
+                  //CHAR(MOD(m,10)+48)
     
-    INQUIRE(DIRECTORY='./last_saved/backup/.', EXIST=dir_exists) 
+    INQUIRE(DIRECTORY='./backup', EXIST=dir_exists) 
 
     IF ( (.NOT. dir_exists)) THEN
-      WRITE(6,*) 'last_saved/backup directory does not exists'
-      CALL system('mkdir last_saved/backup')
-      WRITE(6,*) 'last_saved/backup is created!'
+      WRITE(6,*) 'backup directory does not exists'
+      CALL system('mkdir backup')
+      WRITE(6,*) 'backup is created!'
     ENDIF    
     
     
       
     I=1+RANK
-     FNAME='last_saved/backup/diablo_'       &
+     FNAME='backup/diablo_'       &
 	  //CHAR(MOD(I,1000)/100+48)  &
 	  //CHAR(MOD(I,100)/10+48)    &
-	  //CHAR(MOD(I,10)+48) // '.saved'
+	  //CHAR(MOD(I,10)+48) // '.saved_' //file_num//''
 
      DO N=1,N_TH
-	FNAME_TH(N)='last_saved/backup/diablo_th'  &
+	FNAME_TH(N)='backup/diablo_th'  &
 	  //CHAR(MOD(N,100)/10+48)          &
 	  //CHAR(MOD(N,10)+48) //'_'        &
 	  //CHAR(MOD(I,1000)/100+48)        & 
 	  //CHAR(MOD(I,100)/10+48)          & 
-	  //CHAR(MOD(I,10)+48) // '.saved'
+	  //CHAR(MOD(I,10)+48) // '.saved_'  //file_num//''
      ENDDO
 
     
@@ -974,17 +988,17 @@ SUBROUTINE READ_FLOW
     CLOSE(10)
     CLOSE(11)
 
-	OPEN(1231,file='velocity_data_input.dat',form='formatted', status='unknown')    
-	      
-	DO J=0,NY+1
-	  DO K=0,NZ+1
-	    write(1231,121) CU3X(1,K,J),CU1X(1,K,J)              
-	  ENDDO
-	ENDDO 
-           
-	CLOSE(1231)
-121   FORMAT(2f16.12)
-	WRITE(6,*) 'VELOCITY feild has been write from input file'
+!	OPEN(1231,file='velocity_data_input.dat',form='formatted', status='unknown')    
+!	      
+!	DO J=0,NY+1
+!	  DO K=0,NZ+1
+!	    write(1231,121) CU3X(1,K,J),CU1X(1,K,J)              
+!	  ENDDO
+!	ENDDO 
+!          
+!	CLOSE(1231)
+!121   FORMAT(2f16.12)
+!	WRITE(6,*) 'VELOCITY feild has been write from input file'
 
 ! if you wanted to  disturb the flow after reading    
     IF (KICK_AFTER_READ) THEN

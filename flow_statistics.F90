@@ -792,7 +792,12 @@ SUBROUTINE SAVE_STATS_CURVI(FINAL)
             write(aux_str,'(I4.4)') J
             file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
             CALL plane_XZ_binary_combined(file_name_2,J)
- 
+
+            J=51
+            write(aux_str,'(I4.4)') J
+            file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
+            CALL plane_XZ_binary_combined(file_name_2,J)
+  
             J=70
             write(aux_str,'(I4.4)') J
             file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
@@ -808,8 +813,6 @@ SUBROUTINE SAVE_STATS_CURVI(FINAL)
             file_name_2 = 'xz_plane/span_'//file_num//'J_'//TRIM(aux_str)//'.pln'
             CALL plane_XZ_binary_combined(file_name_2,J)
  
-
-
 
       ENDIF
 
@@ -2098,28 +2101,34 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
     IMPLICIT NONE
 
     INTEGER  ind,STATUS,IERROR
-    INTEGER  i,j,k, NI
+    INTEGER  i,j,k, NI,NXP_L_AUX,sizelp
     CHARACTER*128 file_name
     REAL*8 xpoint_TOT(0:NX,0:NY+1)
     REAL*8 ypoint_TOT(0:NX,0:NY+1)
-    REAL*8 Omega_z(0:NX,0:NY+1)
+    REAL*8 omg_z(0:NX,0:NY+1)
     REAL*8 , allocatable ::  U1X_TOT(:,:),U2X_TOT(:,:),U3X_TOT(:,:),PX_TOT(:,:),THX_TOT(:,:)
     REAL*8 , allocatable ::  U1X_TEMP(:,:),U2X_TEMP(:,:),U3X_TEMP(:,:),PX_TEMP(:,:),THX_TEMP(:,:)
     REAL*8 h1,h2,b,c,dvdx,dudy
  
-
-
     k=ind
 
-    IF (NPROCES.EQ.1) write(*,*)'WARNING: plane_XY_binary_combined is not compatible with serial writting' 
+    CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
+
+    IF (NPROCES.EQ.1) write(*,*)'WARNING: plane_XY_binary_combined is not compatible with serial writting, replace it by calling plane_XY_binary.' 
 
     IF (RANK.EQ.0) THEN ! master proc writes its part and receives from all
 
       allocate(U1X_TOT(0:NX,0:NY+1),U2X_TOT(0:NX,0:NY+1),U3X_TOT(0:NX,0:NY+1),PX_TOT(0:NX,0:NY+1),THX_TOT(0:NX,0:NY+1))
 
+      U1X_TOT=0.0d0 
+      U2X_TOT=0.0d0
+      U3X_TOT=0.0d0
+      PX_TOT=0.0d0
+      THX_TOT=0.0d0
+
       DO I=0,NX
 	xpoint_TOT(I,:)=I*dx(1)
-	ypoint_TOT(I,:) = ypoint(1,:)
+	ypoint_TOT(I,:)=ypoint(k,:)
       ENDDO
 
       U1X_TOT(0:NXP,:)=U1X(:,k,:) 
@@ -2128,14 +2137,27 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
       PX_TOT(0:NXP,:)=PX(:,k,:) 
       THX_TOT(0:NXP,:)=THX(:,k,:,1) 
 
-      DO I=1,NPROCES-2
+      DO I=NPROCES-1,1,-1
+
+      NXP_L_AUX=NX-(NXP+1)*I-1
+
+
+      IF (NXP.LT.NXP_L_AUX) THEN
  
       allocate(U1X_TEMP(0:NXP,0:NY+1),U2X_TEMP(0:NXP,0:NY+1),U3X_TEMP(0:NXP,0:NY+1),PX_TEMP(0:NXP,0:NY+1),THX_TEMP(0:NXP,0:NY+1))
+
+      U1X_TEMP=0.0d0 
+      U2X_TEMP=0.0d0
+      U3X_TEMP=0.0d0
+      PX_TEMP=0.0d0
+      THX_TEMP=0.0d0
+
       CALL MPI_RECV(U1X_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
       CALL MPI_RECV(U2X_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
       CALL MPI_RECV(U3X_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
       CALL MPI_RECV(PX_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
       CALL MPI_RECV(THX_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
+
 
       U1X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U1X_TEMP(0:NXP,:)
       U2X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U2X_TEMP(0:NXP,:)
@@ -2143,26 +2165,43 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
       PX_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=PX_TEMP(0:NXP,:)
       THX_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=THX_TEMP(0:NXP,:)
 
+
       deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
+
+      ELSEIF (NXP_L_AUX .GE. 0) THEN
+
+      sizelp=(nx-1)-I*(nxp+1)+1 !last proc size
+
+      allocate(U1X_TEMP(0:sizelp-1,0:NY+1),U2X_TEMP(0:sizelp-1,0:NY+1),U3X_TEMP(0:sizelp-1,0:NY+1),PX_TEMP(0:sizelp-1,0:NY+1),THX_TEMP(0:sizelp-1,0:NY+1))
+
+      U1X_TEMP=0.0d0 
+      U2X_TEMP=0.0d0
+      U3X_TEMP=0.0d0
+      PX_TEMP=0.0d0
+      THX_TEMP=0.0d0
+      
+
+      CALL MPI_RECV(U1X_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_RECV(U2X_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_RECV(U3X_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_RECV(PX_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_RECV(THX_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+
+
+      U1X_TOT(I*(NXP+1):NX-1,:)=U1X_TEMP(0:sizelp-1,0:NY+1)
+      U2X_TOT(I*(NXP+1):NX-1,:)=U2X_TEMP(0:sizelp-1,0:NY+1)
+      U3X_TOT(I*(NXP+1):NX-1,:)=U3X_TEMP(0:sizelp-1,0:NY+1)
+      PX_TOT(I*(NXP+1):NX-1,:)=PX_TEMP(0:sizelp-1,0:NY+1)
+      THX_TOT(I*(NXP+1):NX-1,:)=THX_TEMP(0:sizelp-1,0:NY+1)
+
+
+      deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
+
+
+      ENDIF
 
       ENDDO
-
       
-      allocate(U1X_TEMP(0:0,0:NY+1),U2X_TEMP(0:0,0:NY+1),U3X_TEMP(0:0,0:NY+1),PX_TEMP(0:0,0:NY+1),THX_TEMP(0:0,0:NY+1))
-      CALL MPI_RECV(U1X_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
-      CALL MPI_RECV(U2X_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
-      CALL MPI_RECV(U3X_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
-      CALL MPI_RECV(PX_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
-      CALL MPI_RECV(THX_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
-
-      U1X_TOT(NX-1:NX-1,:)=U1X_TEMP(0:0,0:NY+1)
-      U2X_TOT(NX-1:NX-1,:)=U2X_TEMP(0:0,0:NY+1)
-      U3X_TOT(NX-1:NX-1,:)=U3X_TEMP(0:0,0:NY+1)
-      PX_TOT(NX-1:NX-1,:)=PX_TEMP(0:0,0:NY+1)
-      THX_TOT(NX-1:NX-1,:)=THX_TEMP(0:0,0:NY+1)
-
-      deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
-
 !update corner 
 
       U1X_TOT(NX,:)=U1X_TOT(0,:)
@@ -2172,10 +2211,18 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
       THX_TOT(NX,:)=THX_TOT(0,:)
 
 
-    ELSEIF ((RANK.NE.0) .AND. (RANK.NE.(NPROCES-1)))  THEN 
+    ELSEIF (RANK.NE.0) THEN 
+
+
+     IF(NXP .LT. NXP_L) THEN
 
       allocate(U1X_TEMP(0:NXP,0:NY+1),U2X_TEMP(0:NXP,0:NY+1),U3X_TEMP(0:NXP,0:NY+1),PX_TEMP(0:NXP,0:NY+1),THX_TEMP(0:NXP,0:NY+1))
 
+      U1X_TEMP=0.0d0 
+      U2X_TEMP=0.0d0
+      U3X_TEMP=0.0d0
+      PX_TEMP=0.0d0
+      THX_TEMP=0.0d0
 
       U1X_TEMP=U1X(:,k,:)
       U2X_TEMP=U2X(:,k,:)
@@ -2191,28 +2238,37 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
       CALL MPI_SEND(PX_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
 
       CALL MPI_SEND(THX_TEMP(0,0),(NXP+1)*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+
       
      deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
 
-   ELSEIF (RANK.EQ.(NPROCES-1))  THEN 
+     ELSEIF(NXP_L .GE. 0) THEN
+  
+      sizelp=(nx-1)-rank*(nxp+1)+1 !last proc size
+ 
+      allocate(U1X_TEMP(0:sizelp-1,0:NY+1),U2X_TEMP(0:sizelp-1,0:NY+1),U3X_TEMP(0:sizelp-1,0:NY+1),PX_TEMP(0:sizelp-1,0:NY+1),THX_TEMP(0:sizelp-1,0:NY+1))
 
-   
-      allocate(U1X_TEMP(0:0,0:NY+1),U2X_TEMP(0:0,0:NY+1),U3X_TEMP(0:0,0:NY+1),PX_TEMP(0:0,0:NY+1),THX_TEMP(0:0,0:NY+1))
+      U1X_TEMP=0.0d0 
+      U2X_TEMP=0.0d0
+      U3X_TEMP=0.0d0
+      PX_TEMP=0.0d0
+      THX_TEMP=0.0d0
 
-      U1X_TEMP(0:0,0:NY+1)=U1X(0:0,k,0:NY+1)
-      U2X_TEMP(0:0,0:NY+1)=U2X(0:0,k,0:NY+1)
-      U3X_TEMP(0:0,0:NY+1)=U3X(0:0,k,0:NY+1)
-      PX_TEMP(0:0,0:NY+1)=PX(0:0,k,0:NY+1)
-      THX_TEMP(0:0,0:NY+1)=THX(0:0,k,0:NY+1,1)
+      U1X_TEMP(0:sizelp-1,0:NY+1)=U1X(0:sizelp-1,k,0:NY+1)
+      U2X_TEMP(0:sizelp-1,0:NY+1)=U2X(0:sizelp-1,k,0:NY+1)
+      U3X_TEMP(0:sizelp-1,0:NY+1)=U3X(0:sizelp-1,k,0:NY+1)
+      PX_TEMP(0:sizelp-1,0:NY+1)=PX(0:sizelp-1,k,0:NY+1)
+      THX_TEMP(0:sizelp-1,0:NY+1)=THX(0:sizelp-1,k,0:NY+1,1)
 
-      CALL MPI_SEND(U1X_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
-      CALL MPI_SEND(U2X_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
-      CALL MPI_SEND(U3X_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
-      CALL MPI_SEND(PX_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
-      CALL MPI_SEND(THX_TEMP(0,0),1*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_SEND(U1X_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_SEND(U2X_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_SEND(U3X_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_SEND(PX_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_SEND(THX_TEMP(0,0),sizelp*(NY+2),MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
 
       deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
 
+   ENDIF
    ENDIF
 
     CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
@@ -2225,7 +2281,7 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
         dudy=b*U1X_TOT(I,J+1)+c*U1X_TOT(I,J-1);
         h1=xpoint_TOT(I+1,J)-xpoint_TOT(I,J); h2=xpoint_TOT(I,J)-xpoint_TOT(I-1,J);        b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
         dvdx=b*U2X_TOT(I+1,J)+c*U2X_TOT(I-1,J);
-        Omega_z(I,J)=dvdx-dudy
+        omg_z(I,J)=dvdx-dudy
        ENDDO
       ENDDO
 
@@ -2233,38 +2289,12 @@ SUBROUTINE plane_XY_binary_combined(file_name,ind)
     OPEN(22,file=TRIM(file_name),form='unformatted',status='unknown')
     WRITE(22) TIME,NX,NY,k,NXP
     WRITE(22) ypoint_TOT, xpoint_TOT   
-    WRITE(22) U1X_TOT(0:NX,0:NY+1),U2X_TOT(0:NX,0:NY+1),U3X_TOT(0:NX,0:NY+1),PX_TOT(0:NX,0:NY+1),THX_TOT(0:NX,0:NY+1),Omega_z(0:NX,0:NY+1)
+    WRITE(22) U1X_TOT(0:NX,0:NY+1),U2X_TOT(0:NX,0:NY+1),U3X_TOT(0:NX,0:NY+1),PX_TOT(0:NX,0:NY+1),THX_TOT(0:NX,0:NY+1),omg_z(0:NX,0:NY+1)
     CLOSE(22)
 
     deallocate(U1X_TOT,U2X_TOT,U3X_TOT,PX_TOT,THX_TOT)
 
     ENDIF
-
-!    ELSEIF(NPROCES.EQ.1) THEN !in case nproc=1
-
-!    DO I=0,NX
-!	xpoint_TOT(I,:)=I*dx(1)
-!	ypoint_TOT(I,:) = ypoint(1,:)
-!    ENDDO
-
-!      DO J=1,NY
-!       DO I=1,NX-1
-!        h1=ypoint_TOT(I,J+1)-ypoint_TOT(I,J); h2=ypoint_TOT(I,J)-ypoint_TOT(I,J-1);        b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-!        dudy=b*U1X(I,k,J+1)+c*U1X(I,k,J-1);
-!        h1=xpoint_TOT(I+1,J)-xpoint_TOT(I,J); h2=xpoint_TOT(I,J)-xpoint_TOT(I-1,J);        b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-!        dvdx=b*U2X(I+1,k,J)+c*U2X(I-1,k,J);
-!        Omega_z(I,J)=dvdx-dudy
-!       ENDDO
-!      ENDDO
-!
-!    WRITE(6,*) 'Saving combined XY-plane data on ',TRIM(file_name)
-!    OPEN(22,file=TRIM(file_name),form='unformatted',status='unknown')
-!    WRITE(22) TIME,NX,NY,k,NXP
-!    WRITE(22) ypoint_TOT, xpoint_TOT   
-!    WRITE(22) U1X(:,k,:),U2X(:,k,:),U3X(:,k,:),PX(:,k,:),THX(:,k,:,1),Omega_z
-!    CLOSE(22)
-
-!    ENDIF
 
 
     CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
@@ -2354,25 +2384,31 @@ SUBROUTINE plane_XZ_binary_combined(file_name,ind)
     IMPLICIT NONE
 
     INTEGER  ind,STATUS,IERROR
-    INTEGER  i,j,k, NI,jj,ii
+    INTEGER  i,j,k, NI,jj,ii,NXP_L_AUX,sizelp
     CHARACTER*128 file_name
 
     REAL*8 , allocatable ::  U1X_TOT(:,:),U2X_TOT(:,:),U3X_TOT(:,:),PX_TOT(:,:),THX_TOT(:,:)
     REAL*8 , allocatable ::  U1X_TEMP(:,:),U2X_TEMP(:,:),U3X_TEMP(:,:),PX_TEMP(:,:),THX_TEMP(:,:)
     REAL*8 xpoint_TOT(0:NX-1,1:NZ)
     REAL*8 zpoint_TOT(0:NX-1,1:NZ)
-    REAL*8 Omega_y(0:NX-1,1:NZ),Omega_y_p(0:NX-1,1:NZ) 
+    REAL*8 omg_y(0:NX-1,1:NZ),omg_y_p(0:NX-1,1:NZ) 
     REAL*8 U1X_p(0:NX-1,1:NZ),U2X_p(0:NX-1,1:NZ),U3X_p(0:NX-1,1:NZ) 
     REAL*8 THX_p(0:NX-1,1:NZ),PX_p(0:NX-1,1:NZ) 
     REAL*8 h1,h2,b,c,dudz,dwdx,dudz_p,dwdx_p,tmp 
 
     J=ind
 
-    IF (NPROCES.EQ.1) write(*,*)'WARNING: plane_XZ_binary_combined is not compatible with serial writting' 
+    IF (NPROCES.EQ.1) write(*,*)'WARNING: plane_XZ_binary_combined is not compatible with serial writting, replace it by calling plane_XZ_binary.' 
 
     IF (RANK.EQ.0) THEN ! master proc writes its part and receives from all
 
       allocate(U1X_TOT(0:NX-1,1:NZ),U2X_TOT(0:NX-1,1:NZ),U3X_TOT(0:NX-1,1:NZ),PX_TOT(0:NX-1,1:NZ),THX_TOT(0:NX-1,1:NZ))
+
+      U1X_TOT=0.0d0 
+      U2X_TOT=0.0d0
+      U3X_TOT=0.0d0
+      PX_TOT=0.0d0
+      THX_TOT=0.0d0
 
       DO I=0,NX-1
 	xpoint_TOT(I,1:NZ)=I*dx(1)
@@ -2385,59 +2421,95 @@ SUBROUTINE plane_XZ_binary_combined(file_name,ind)
       PX_TOT(0:NXP,:)=PX(0:NXP,1:NZ,J) 
       THX_TOT(0:NXP,:)=THX(0:NXP,1:NZ,J,1) 
 
-      DO I=1,NPROCES-2 ! proc 2:np-2 are different from np-1      
+      DO I=NPROCES-1,1,-1       
+
+      NXP_L_AUX=NX-(NXP+1)*I-1
+
+
+     IF (NXP.LT.NXP_L_AUX) THEN
+
        allocate(U1X_TEMP(0:NXP,1:NZ),U2X_TEMP(0:NXP,1:NZ),U3X_TEMP(0:NXP,1:NZ),PX_TEMP(0:NXP,1:NZ),THX_TEMP(0:NXP,1:NZ))
 
-       CALL MPI_RECV(U1X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
+      U1X_TEMP=0.0d0 
+      U2X_TEMP=0.0d0
+      U3X_TEMP=0.0d0
+      PX_TEMP=0.0d0
+      THX_TEMP=0.0d0
 
-       CALL MPI_RECV(U2X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
+      
+       CALL MPI_RECV(U1X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+       CALL MPI_RECV(U2X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+       CALL MPI_RECV(U3X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+       CALL MPI_RECV(PX_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+       CALL MPI_RECV(THX_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
 
-       CALL MPI_RECV(U3X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
 
-       CALL MPI_RECV(PX_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
 
-       CALL MPI_RECV(THX_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,I,0,MPI_COMM_WORLD,STATUS,IERROR)
+       U1X_TOT(INT(I)*(NXP+1):(INT(I)+1)*(NXP+1)-1,:)=U1X_TEMP(0:NXP,:)
+       U2X_TOT(INT(I)*(NXP+1):(INT(I)+1)*(NXP+1)-1,:)=U2X_TEMP(0:NXP,:)
+       U3X_TOT(INT(I)*(NXP+1):(INT(I)+1)*(NXP+1)-1,:)=U3X_TEMP(0:NXP,:)
+       PX_TOT(INT(I)*(NXP+1):(INT(I)+1)*(NXP+1)-1,:)=PX_TEMP(0:NXP,:)
+       THX_TOT(INT(I)*(NXP+1):(INT(I)+1)*(NXP+1)-1,:)=THX_TEMP(0:NXP,:)
 
-       U1X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U1X_TEMP(0:NXP,:)
-       U2X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U2X_TEMP(0:NXP,:)
-       U3X_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=U3X_TEMP(0:NXP,:)
-       PX_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=PX_TEMP(0:NXP,:)
-       THX_TOT(I*(NXP+1):(I+1)*(NXP+1)-1,:)=THX_TEMP(0:NXP,:)
 
-       deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
 
-      ENDDO
+      deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
+      
+      ELSEIF (NXP_L_AUX .GE. 0) THEN
 
-      allocate(U1X_TEMP(0:0,1:NZ),U2X_TEMP(0:0,1:NZ),U3X_TEMP(0:0,1:NZ),PX_TEMP(0:0,1:NZ),THX_TEMP(0:0,1:NZ)) !receive from proc np-1
+      sizelp=(nx-1)-I*(nxp+1)+1 !last proc size
+     
+      allocate(U1X_TEMP(0:sizelp-1,1:NZ),U2X_TEMP(0:sizelp-1,1:NZ),U3X_TEMP(0:sizelp-1,1:NZ),PX_TEMP(0:sizelp-1,1:NZ),THX_TEMP(0:sizelp-1,1:NZ))
 
-      CALL MPI_RECV(U1X_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
+      U1X_TEMP=0.0d0 
+      U2X_TEMP=0.0d0
+      U3X_TEMP=0.0d0
+      PX_TEMP=0.0d0
+      THX_TEMP=0.0d0
 
-      CALL MPI_RECV(U2X_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_RECV(U1X_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
 
-      CALL MPI_RECV(U3X_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_RECV(U2X_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
 
-      CALL MPI_RECV(PX_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_RECV(U3X_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
 
-      CALL MPI_RECV(THX_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,NPROCES-1,0,MPI_COMM_WORLD,STATUS,IERROR)
+      CALL MPI_RECV(PX_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
 
-      U1X_TOT(NX-1:NX-1,:)=U1X_TEMP
-      U2X_TOT(NX-1:NX-1,:)=U2X_TEMP
-      U3X_TOT(NX-1:NX-1,:)=U3X_TEMP
-      PX_TOT(NX-1:NX-1,:)=PX_TEMP
-      THX_TOT(NX-1:NX-1,:)=THX_TEMP
+      CALL MPI_RECV(THX_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,INT(I),0,MPI_COMM_WORLD,STATUS,IERROR)
+
+
+
+      U1X_TOT(INT(I)*(NXP+1):NX-1,:)=U1X_TEMP(0:sizelp-1,:)
+      U2X_TOT(INT(I)*(NXP+1):NX-1,:)=U2X_TEMP
+      U3X_TOT(INT(I)*(NXP+1):NX-1,:)=U3X_TEMP
+      PX_TOT(INT(I)*(NXP+1):NX-1,:)=PX_TEMP
+      THX_TOT(INT(I)*(NXP+1):NX-1,:)=THX_TEMP
+
 
       deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
 
-    
-    ELSEIF ((RANK.NE.0) .AND. (RANK.NE.(NPROCES-1)))  THEN 
+    ENDIF
 
-       allocate(U1X_TEMP(0:NXP,1:NZ),U2X_TEMP(0:NXP,1:NZ),U3X_TEMP(0:NXP,1:NZ),PX_TEMP(0:NXP,1:NZ),THX_TEMP(0:NXP,1:NZ)) ! proc 2:np-2 send data to master 
+    ENDDO   
+ 
+    ELSEIF (RANK.NE.0) THEN 
+
+     IF(NXP .LT. NXP_L) THEN
+
+       allocate(U1X_TEMP(0:NXP,1:NZ),U2X_TEMP(0:NXP,1:NZ),U3X_TEMP(0:NXP,1:NZ),PX_TEMP(0:NXP,1:NZ),THX_TEMP(0:NXP,1:NZ)) 
+
+      U1X_TEMP=0.0d0 
+      U2X_TEMP=0.0d0
+      U3X_TEMP=0.0d0
+      PX_TEMP=0.0d0
+      THX_TEMP=0.0d0
 
     U1X_TEMP=U1X(0:NXP,1:NZ,J)     
     U2X_TEMP=U2X(0:NXP,1:NZ,J)     
     U3X_TEMP=U3X(0:NXP,1:NZ,J)     
     PX_TEMP=PX(0:NXP,1:NZ,J)     
     THX_TEMP=THX(0:NXP,1:NZ,J,1)     
+
 
     CALL MPI_SEND(U1X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
     CALL MPI_SEND(U2X_TEMP(0,1),(NXP+1)*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
@@ -2447,56 +2519,83 @@ SUBROUTINE plane_XZ_binary_combined(file_name,ind)
 
       deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
 
-    ELSEIF (RANK.EQ.(NPROCES-1))  THEN 
+     ELSEIF(NXP_L .GE. 0) THEN
 
-      allocate(U1X_TEMP(0:0,1:NZ),U2X_TEMP(0:0,1:NZ),U3X_TEMP(0:0,1:NZ),PX_TEMP(0:0,1:NZ),THX_TEMP(0:0,1:NZ)) ! proc np-1 sends data to master
 
-    U1X_TEMP(0,1:NZ)=U1X(0,1:NZ,J)     
-    U2X_TEMP(0,1:NZ)=U2X(0,1:NZ,J)     
-    U3X_TEMP(0,1:NZ)=U3X(0,1:NZ,J)     
-    PX_TEMP(0,1:NZ)=PX(0,1:NZ,J)     
-    THX_TEMP(0,1:NZ)=THX(0,1:NZ,J,1)     
+      sizelp=(nx-1)-rank*(nxp+1)+1 !last proc size
 
-    CALL MPI_SEND(U1X_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
-    CALL MPI_SEND(U2X_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
-    CALL MPI_SEND(U3X_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
-    CALL MPI_SEND(PX_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
-    CALL MPI_SEND(THX_TEMP(0,1),1*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+
+      allocate(U1X_TEMP(0:sizelp-1,1:NZ),U2X_TEMP(0:sizelp-1,1:NZ),U3X_TEMP(0:sizelp-1,1:NZ),PX_TEMP(0:sizelp-1,1:NZ),THX_TEMP(0:sizelp-1,1:NZ))
+
+      U1X_TEMP=0.0d0 
+      U2X_TEMP=0.0d0
+      U3X_TEMP=0.0d0
+      PX_TEMP=0.0d0
+      THX_TEMP=0.0d0
+
+     U1X_TEMP(0:sizelp-1,1:NZ)=U1X(0:sizelp-1,1:NZ,J)     
+     U2X_TEMP(0:sizelp-1,1:NZ)=U2X(0:sizelp-1,1:NZ,J)     
+     U3X_TEMP(0:sizelp-1,1:NZ)=U3X(0:sizelp-1,1:NZ,J)     
+     PX_TEMP(0:sizelp-1,1:NZ)=PX(0:sizelp-1,1:NZ,J)     
+     THX_TEMP(0:sizelp-1,1:NZ)=THX(0:sizelp-1,1:NZ,J,1)     
+
+
+    CALL MPI_SEND(U1X_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+    CALL MPI_SEND(U2X_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+    CALL MPI_SEND(U3X_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+    CALL MPI_SEND(PX_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
+    CALL MPI_SEND(THX_TEMP(0,1),sizelp*NZ,MPI_DOUBLE_PRECISION,0,0,MPI_COMM_WORLD,STATUS,IERROR)
 
       deallocate(U1X_TEMP,U2X_TEMP,U3X_TEMP,PX_TEMP,THX_TEMP)
 
+    ENDIF
     ENDIF
 
     CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
 
     IF (RANK.EQ.0) THEN 
 
+    omg_y=0.0d0
+     
       DO JJ=2,NZ-1
        DO II=1,NX-2
         h1=zpoint_TOT(II,JJ+1)-zpoint_TOT(II,JJ); h2=zpoint_TOT(II,JJ)-zpoint_TOT(II,JJ-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
         dudz=b*U1X_TOT(II,JJ+1)+c*U1X_TOT(II,JJ-1);
         h1=xpoint_TOT(II+1,JJ)-xpoint_TOT(II,JJ); h2=xpoint_TOT(II,JJ)-xpoint_TOT(II-1,JJ);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
         dwdx=b*U3X_TOT(II+1,JJ)+c*U3X_TOT(II-1,JJ);
-        Omega_y(II,JJ)=dudz-dwdx
+        omg_y(II,JJ)=dudz-dwdx
        ENDDO
       ENDDO
       
-      Omega_y(0,:)=Omega_y(NX-2,:); Omega_y(NX-1,:)=Omega_y(1,:);
-      Omega_y(:,NZ)=Omega_y(:,2); Omega_y(:,1)=Omega_y(:,NZ-1);
+      omg_y(0,:)=omg_y(NX-2,:); omg_y(NX-1,:)=omg_y(1,:);
+      omg_y(:,NZ)=omg_y(:,2); omg_y(:,1)=omg_y(:,NZ-1);
+
+
+      U3X_p=0.0d0
+      U2X_p=0.0d0
+      U1X_p=0.0d0
+      THX_p=0.0d0
+      PX_p=0.0d0
  
      DO II=0,NX-1
+
       tmp=SUM(U3X_TOT(II,1:NZ))/dble(NZ)
       U3X_p(II,:) = U3X_TOT(II,:)-tmp
+
       tmp=SUM(U2X_TOT(II,1:NZ))/dble(NZ)
       U2X_p(II,:) = U2X_TOT(II,:)-tmp
+
       tmp=SUM(U1X_TOT(I,1:NZ))/dble(NZ)
       U1X_p(II,:) = U1X_TOT(II,:)-tmp
 
       tmp=SUM(THX_TOT(II,1:NZ))/dble(NZ)
       THX_p(II,:) = THX_TOT(II,:)-tmp
+
       tmp=SUM(PX_TOT(II,1:NZ))/dble(NZ)
       PX_p(II,:) = PX_TOT(II,:)-tmp
      ENDDO
+
+     omg_y_p=0.0d0
  
      DO JJ=2,NZ-1
        DO II=1,NX-2
@@ -2504,85 +2603,25 @@ SUBROUTINE plane_XZ_binary_combined(file_name,ind)
         dudz_p=b*U1X_p(II,JJ+1)+c*U1X_p(II,JJ-1);
         h1=xpoint_TOT(II+1,JJ)-xpoint_TOT(II,JJ); h2=xpoint_TOT(II,JJ)-xpoint_TOT(II-1,JJ);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
         dwdx_p=b*U3X_p(II+1,JJ)+c*U3X_p(II-1,JJ);
-        Omega_y_p(II,JJ)=dudz_p-dwdx_p
+        omg_y_p(II,JJ)=dudz_p-dwdx_p
        ENDDO
       ENDDO
       
-      Omega_y_p(0,:)=Omega_y_p(NX-2,:); Omega_y_p(NX-1,:)=Omega_y_p(1,:);
-      Omega_y_p(:,NZ)=Omega_y_p(:,2); Omega_y_p(:,1)=Omega_y_p(:,NZ-1);
+      omg_y_p(0,:)=omg_y_p(NX-2,:); omg_y_p(NX-1,:)=omg_y_p(1,:);
+      omg_y_p(:,NZ)=omg_y_p(:,2); omg_y_p(:,1)=omg_y_p(:,NZ-1);
  
-
     WRITE(6,*) 'Saving combined XZ-plane data on ',TRIM(file_name)
     OPEN(22,file=TRIM(file_name),form='unformatted',status='unknown')
     WRITE(22) TIME,NX,NZ,J,NXP
     WRITE(22) zpoint_TOT, xpoint_TOT   
-    WRITE(22) U3X_TOT(0:NX-1,1:NZ),U2X_TOT(0:NX-1,1:NZ),U1X_TOT(0:NX-1,1:NZ),PX_TOT(0:NX-1,1:NZ),THX_TOT(0:NX-1,1:NZ)
-    WRITE(22) U3X_p(0:NX-1,1:NZ),U2X_p(0:NX-1,1:NZ),U1X_p(0:NX-1,1:NZ),PX_p(0:NX-1,1:NZ),THX_p(0:NX-1,1:NZ),Omega_y(0:NX-1,1:NZ),Omega_y_p(0:NX-1,1:NZ)
+    WRITE(22) U1X_TOT(0:NX-1,1:NZ),U2X_TOT(0:NX-1,1:NZ),U3X_TOT(0:NX-1,1:NZ),PX_TOT(0:NX-1,1:NZ),THX_TOT(0:NX-1,1:NZ)
+    WRITE(22) U1X_p(0:NX-1,1:NZ),U2X_p(0:NX-1,1:NZ),U3X_p(0:NX-1,1:NZ),PX_p(0:NX-1,1:NZ),THX_p(0:NX-1,1:NZ),omg_y(0:NX-1,1:NZ),omg_y_p(0:NX-1,1:NZ)
     CLOSE(22)
 
 
     DEALLOCATE(U1X_TOT,U2X_TOT,U3X_TOT,PX_TOT,THX_TOT)
 
     ENDIF
-
-!    ELSEIF (NPROCES.EQ.1) THEN
-
-!    write(*,*) 'plane XZ combined serial is not coded'    
-
-!      DO I=0,NX-1
-!	xpoint_TOT(I,1:NZ)=I*dx(1)
-!	zpoint_TOT(I,1:NZ) = xpoint(1:NZ,J)
-!      ENDDO
-!
-!      DO JJ=2,NZ-1
-!       DO II=1,NX-2
-!        h1=zpoint_TOT(II,JJ+1)-zpoint_TOT(II,JJ); h2=zpoint_TOT(II,JJ)-zpoint_TOT(II,JJ-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-!        dudz=b*U1X(II,JJ+1,J)+c*U1X(II,JJ-1,J);
-!        h1=xpoint_TOT(II+1,JJ)-xpoint_TOT(II,JJ); h2=xpoint_TOT(II,JJ)-xpoint_TOT(II-1,JJ);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-!        dwdx=b*U3X(II+1,JJ,J)+c*U3X(II-1,JJ,J);
-!        Omega_y(II,JJ)=dudz-dwdx
-!       ENDDO
-!      ENDDO
-!      
-!      Omega_y(0,:)=Omega_y(NX-2,:); Omega_y(NX-1,:)=Omega_y(1,:);
-!      Omega_y(:,NZ)=Omega_y(:,2); Omega_y(:,1)=Omega_y(:,NZ-1);
-! 
-!     DO I=0,NX-1
-!      tmp=SUM(U3X(I,:,J))/dble(NZ)
-!      U3X_p(I,:) = U3X(I,:,J)-tmp
-!      tmp=SUM(U2X(I,:,J))/dble(NZ)
-!      U2X_p(I,:) = U2X(I,:,J)-tmp
-!      tmp=SUM(U1X(I,:,J))/dble(NZ)
-!      U1X_p(I,:) = U1X(I,:,J)-tmp
-!
-!      tmp=SUM(THX(I,:,J,1))/dble(NZ)
-!      THX_p(I,:) = THX(I,:,J,1)-tmp
-!      tmp=SUM(PX(I,:,J))/dble(NZ)
-!      PX_p(I,:) = PX(I,:,J)-tmp
-!     ENDDO
-! 
-!     DO JJ=2,NZ-1
-!       DO II=1,NX-2
-!        h1=zpoint_TOT(II,JJ+1)-zpoint_TOT(II,JJ); h2=zpoint_TOT(II,JJ)-zpoint_TOT(II,JJ-1);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-!        dudz_p=b*U1X_p(II,JJ+1)+c*U1X_p(II,JJ-1);
-!        h1=xpoint_TOT(II+1,JJ)-xpoint_TOT(II,JJ); h2=xpoint_TOT(II,JJ)-xpoint_TOT(II-1,JJ);  b=h2/dble(h1)/dble(h1+h2); c=-h1/dble(h2)/dble(h1+h2);
-!        dwdx_p=b*U3X_p(II+1,JJ)+c*U3X_p(II-1,JJ);
-!        Omega_y_p(II,JJ)=dudz_p-dwdx_p
-!       ENDDO
-!      ENDDO
-!      
-!      Omega_y_p(0,:)=Omega_y_p(NX-2,:); Omega_y_p(NX-1,:)=Omega_y_p(1,:);
-!      Omega_y_p(:,NZ)=Omega_y_p(:,2); Omega_y_p(:,1)=Omega_y_p(:,NZ-1);
-! 
-!    WRITE(6,*) 'Saving combined XZ-plane data on ',TRIM(file_name)
-!    OPEN(22,file=TRIM(file_name),form='unformatted',status='unknown')
-!    WRITE(22) TIME,NX,NZ,J,NXP
-!    WRITE(22) zpoint_TOT, xpoint_TOT   
-!    WRITE(22) U1X(:,:,J),U2X(:,:,J),U3X(:,:,J),PX(:,:,J),THX(:,:,J,1)
-!    WRITE(22) U1X_p(0:NX-1,1:NZ),U2X_p(0:NX-1,1:NZ),U3X_p(0:NX-1,1:NZ),PX_p(0:NX-1,1:NZ),THX_p(0:NX-1,1:NZ),Omega_y(0:NX-1,1:NZ),Omega_y_p(0:NX-1,1:NZ)
-!    CLOSE(22)
-
-!    ENDIF 
 
     CALL MPI_BARRIER(MPI_COMM_WORLD,IERROR)
 

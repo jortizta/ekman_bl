@@ -3025,7 +3025,7 @@ SUBROUTINE CREATE_FLOW_DUCT
       
     ELSE IF (IC_TYPE.eq.7) THEN
 
-      INPUT_V_INI= .True.  
+      INPUT_V_INI= .FALSE.  
       
       IF (INPUT_V_INI) THEN 
       
